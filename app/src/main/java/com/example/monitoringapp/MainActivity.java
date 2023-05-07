@@ -4,52 +4,55 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Response;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
+    private WorkerService workerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new HttpGetRequest().execute();
-    }
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-    private class HttpGetRequest extends AsyncTask<Void, Void, String> {
-        @Override
-        protected String doInBackground(Void... voids) {
-            try {
-                URL url = new URL("http://192.168.0.102:5000/workers");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Content-Type", "application/json");
+        workerService = retrofit.create(WorkerService.class);
+        Call<List<Worker>> call = workerService.getWorkers();
+        call.enqueue(new Callback<List<Worker>>() {
+            @Override
+            public void onResponse(Call<List<Worker>> call, Response<List<Worker>> response) {
+                if (response.isSuccessful()) {
+                    List<Worker> workers = response.body();
+                    for (Worker worker : workers) {
+                        if (worker != null) {
+                            Log.d("WORKER", "First name: " + worker.getFirst_name());
+                        } else {
+                            Log.e("WORKER", "Worker is null");
+                        }
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    }
+                } else {
+                    Log.e("WORKER", "Error: " + response.code());
                 }
-                reader.close();
-
-                String jsonString = sb.toString();
-                return jsonString;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
             }
-        }
 
-        @Override
-        protected void onPostExecute(String jsonString) {
-            if (jsonString != null) {
-                Log.d("JSON", jsonString);
+            @Override
+            public void onFailure(Call<List<Worker>> call, Throwable t) {
+                Log.e("WORKER", "Error: " + t.getMessage());
             }
-        }
+        });
     }
 }
-

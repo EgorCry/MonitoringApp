@@ -4,43 +4,46 @@ import java.util.Date;
 
 public class Worker {
     private int ID_worker;
-    private String first_name;
-    private String second_name;
-    private String patronymic;
-    private String mail;
-    private String job_title;
-    private Date employment_date;
-    private Boolean responsible;
+    private String First_name;
+    private String Second_name;
+    private String Patronymic;
+    private String Mail;
+    private String Job_title;
+    private String Employment_date;
+    private int Responsible;
 
     public int getID_worker() {
         return ID_worker;
     }
 
     public String getFirst_name() {
-        return first_name;
+        return First_name;
     }
 
     public String getSecond_name() {
-        return second_name;
+        return Second_name;
     }
 
     public String getPatronymic() {
-        return patronymic;
+        return Patronymic;
     }
 
     public String getMail() {
-        return mail;
+        return Mail;
     }
 
     public String getJob_title() {
-        return job_title;
+        return Job_title;
     }
 
-    public Date getEmployment_date() {
-        return employment_date;
+    public String getEmployment_date() {
+        return Employment_date;
     }
 
     public Boolean getResponsible() {
-        return responsible;
+        if (Responsible == 1) {
+            return true;
+        }
+        return false;
     }
 }
