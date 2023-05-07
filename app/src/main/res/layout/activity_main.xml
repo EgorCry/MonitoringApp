@@ -9,7 +9,7 @@
         android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="Login"
         android:layout_centerInParent="true" />
 
     <EditText
@@ -28,5 +28,14 @@
         android:text="Log In"
         android:layout_below="@id/password_edit_text"
         android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/text_sad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Don't have one? Sad to be you"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/login_button"
+        android:layout_marginTop="200dp"/>
 
 </RelativeLayout>
