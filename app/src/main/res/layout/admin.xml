@@ -1,15 +1,169 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF0000">
+    android:orientation="vertical"
+    android:layout_marginHorizontal="5dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Первый уровень -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome Admin!"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:layout_centerInParent="true"/>
+        android:layout_marginTop="5dp">
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btn_logout"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Logout"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Name Surname"
+            android:textSize="24sp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/iv_rounded_image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/avatar1"/>
+
+    </LinearLayout>
+
+    <!-- Второй уровень -->
+    <TextView
+        android:id="@+id/tv_place_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Place Name"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"/>
+
+    <!-- Третий уровень -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="190dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_first_image"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/percent_0" />
+
+                <ImageView
+                    android:id="@+id/iv_second_image"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/percent_0" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_text"
+                        android:layout_width="163dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:shadowColor="#004524"
+                        android:shadowRadius="25"
+                        android:text="GOOD"
+                        android:textColor="#00FFAA"
+                        android:textSize="50sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_third_image"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/iv_first_image1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/percent_0" />
+
+                <ImageView
+                    android:id="@+id/iv_second_image1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/percent_0" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_text1"
+                        android:layout_width="163dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:shadowColor="#004524"
+                        android:shadowRadius="25"
+                        android:text="GOOD"
+                        android:textColor="#00FFAA"
+                        android:textSize="50sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_third_image1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar3" />
+
+            </LinearLayout>
+
+            <!-- Можно добавить другие элементы списка с такой же разметкой, -->
+            <!-- чтобы они также прокручивались в ScrollView по вертикали -->
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
