@@ -8,6 +8,60 @@ public class AdminResponse {
     private String worker2;
     private String first_name;
     private String second_name;
+    private Float prediction_worker2;
+    private Float prediction_worker3;
+    private Float humidity_worker2;
+    private Float humidity_worker3;
+    private String status_worker2;
+    private String status_worker3;
+
+    public Float getPrediction_worker2() {
+        return prediction_worker2;
+    }
+
+    public void setPrediction_worker2(Float prediction_worker2) {
+        this.prediction_worker2 = prediction_worker2;
+    }
+
+    public Float getPrediction_worker3() {
+        return prediction_worker3;
+    }
+
+    public void setPrediction_worker3(Float prediction_worker3) {
+        this.prediction_worker3 = prediction_worker3;
+    }
+
+    public Float getHumidity_worker2() {
+        return humidity_worker2;
+    }
+
+    public void setHumidity_worker2(Float humidity_worker2) {
+        this.humidity_worker2 = humidity_worker2;
+    }
+
+    public Float getHumidity_worker3() {
+        return humidity_worker3;
+    }
+
+    public void setHumidity_worker3(Float humidity_worker3) {
+        this.humidity_worker3 = humidity_worker3;
+    }
+
+    public String getStatus_worker2() {
+        return status_worker2;
+    }
+
+    public void setStatus_worker2(String status_worker2) {
+        this.status_worker2 = status_worker2;
+    }
+
+    public String getStatus_worker3() {
+        return status_worker3;
+    }
+
+    public void setStatus_worker3(String status_worker3) {
+        this.status_worker3 = status_worker3;
+    }
 
     public String getMessage() {
         return message;
