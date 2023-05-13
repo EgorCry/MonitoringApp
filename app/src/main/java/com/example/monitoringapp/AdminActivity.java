@@ -2,6 +2,8 @@ package com.example.monitoringapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,7 +19,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class AdminActivity extends AppCompatActivity {
+    private Handler mHandler = new Handler();
+    private Runnable mRunnable;
+    private AdminAPI adminAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,69 +46,77 @@ public class AdminActivity extends AppCompatActivity {
         ImageView imageViewHumidity3 = findViewById(R.id.iv_second_image1);
         TextView tvStatus3 = (TextView) findViewById(R.id.tv_text1);
 
-        AdminAPI adminAPI = retrofit.create(AdminAPI.class);
+        adminAPI = retrofit.create(AdminAPI.class);
 
-        Call<AdminResponse> call = adminAPI.getAdminData();
-        call.enqueue(new Callback<AdminResponse>() {
+        mRunnable = new Runnable() {
             @Override
-            public void onResponse(Call<AdminResponse> call, Response<AdminResponse> response) {
-                if (response.isSuccessful()) {
-                    AdminResponse adminResponse = response.body();
-                    if (adminResponse != null) {
-                        String name = adminResponse.getFirst_name() + " " + adminResponse.getSecond_name();
-                        String placeName = adminResponse.getWorkshop_name();
+            public void run() {
+                Call<AdminResponse> call = adminAPI.getAdminData();
+                call.enqueue(new Callback<AdminResponse>() {
+                    @Override
+                    public void onResponse(Call<AdminResponse> call, Response<AdminResponse> response) {
+                        if (response.isSuccessful()) {
+                            AdminResponse adminResponse = response.body();
+                            if (adminResponse != null) {
+                                String name = adminResponse.getFirst_name() + " " + adminResponse.getSecond_name();
+                                String placeName = adminResponse.getWorkshop_name();
 
-                        int predictionInt2 = adminResponse.getPrediction_worker2().intValue();
-                        int imageHealth2 = getResources().getIdentifier("percent_" + predictionInt2, "drawable", getPackageName());
-                        int humidityInt2 = adminResponse.getHumidity_worker2().intValue();
-                        int imageHumidity2 = getResources().getIdentifier("percent_" + humidityInt2, "drawable", getPackageName());
-                        imageViewHealth2.setImageResource(imageHealth2);
-                        imageViewHumidity2.setImageResource(imageHumidity2);
-                        String statusWorker2 = adminResponse.getStatus_worker2();
-                        if (statusWorker2.equals("SAFE")) {
-                            tvStatus2.setText("SAFE");
-                            tvStatus2.setTextColor(0xFF00FFAA);
-                        } else if (statusWorker2.equals("GOOD")) {
-                            tvStatus2.setText("GOOD");
-                            tvStatus2.setTextColor(0xFFFFCC00);
-                        } else if (statusWorker2.equals("BAD")) {
-                            tvStatus2.setText("BAD");
-                            tvStatus2.setTextColor(0xFFFF2400);
+                                int predictionInt2 = adminResponse.getPrediction_worker2().intValue();
+                                int imageHealth2 = getResources().getIdentifier("percent_" + predictionInt2, "drawable", getPackageName());
+                                int humidityInt2 = adminResponse.getHumidity_worker2().intValue();
+                                int imageHumidity2 = getResources().getIdentifier("percent_" + humidityInt2, "drawable", getPackageName());
+                                imageViewHealth2.setImageResource(imageHealth2);
+                                imageViewHumidity2.setImageResource(imageHumidity2);
+                                String statusWorker2 = adminResponse.getStatus_worker2();
+                                if (statusWorker2.equals("SAFE")) {
+                                    tvStatus2.setText("SAFE");
+                                    tvStatus2.setTextColor(0xFF00FFAA);
+                                } else if (statusWorker2.equals("GOOD")) {
+                                    tvStatus2.setText("GOOD");
+                                    tvStatus2.setTextColor(0xFFFFCC00);
+                                } else if (statusWorker2.equals("BAD")) {
+                                    tvStatus2.setText("BAD");
+                                    tvStatus2.setTextColor(0xFFFF2400);
+                                }
+
+                                int predictionInt3 = adminResponse.getPrediction_worker3().intValue();
+                                int imageHealth3 = getResources().getIdentifier("percent_" + predictionInt3, "drawable", getPackageName());
+                                int humidityInt3 = adminResponse.getHumidity_worker3().intValue();
+                                int imageHumidity3 = getResources().getIdentifier("percent_" + humidityInt3, "drawable", getPackageName());
+                                imageViewHealth3.setImageResource(imageHealth3);
+                                imageViewHumidity3.setImageResource(imageHumidity3);
+                                String statusWorker3 = adminResponse.getStatus_worker3();
+                                Log.e("Redirect", "Message3:"+humidityInt3);
+                                if (statusWorker3.equals("SAFE")) {
+                                    tvStatus3.setText("SAFE");
+                                    tvStatus3.setTextColor(0xFF00FFAA);
+                                } else if (statusWorker3.equals("GOOD")) {
+                                    tvStatus3.setText("GOOD");
+                                    tvStatus3.setTextColor(0xFFFFCC00);
+                                } else if (statusWorker3.equals("BAD")) {
+                                    tvStatus3.setText("BAD");
+                                    tvStatus3.setTextColor(0xFFFF2400);
+                                }
+
+                                tvName.setText(name);
+                                tvPlaceName.setText(placeName);
+                            }
+                        } else {
+                            // код для обработки ошибок при отправке запроса
+                            Toast.makeText(AdminActivity.this, "Ошибка сети. Проверьте подключение к Интернету и попробуйте снова", Toast.LENGTH_LONG).show();
                         }
-
-                        int predictionInt3 = adminResponse.getPrediction_worker3().intValue();
-                        int imageHealth3 = getResources().getIdentifier("percent_" + predictionInt3, "drawable", getPackageName());
-                        int humidityInt3 = adminResponse.getHumidity_worker3().intValue();
-                        int imageHumidity3 = getResources().getIdentifier("percent_" + humidityInt3, "drawable", getPackageName());
-                        imageViewHealth3.setImageResource(imageHealth3);
-                        imageViewHumidity3.setImageResource(imageHumidity3);
-                        String statusWorker3 = adminResponse.getStatus_worker3();
-                        if (statusWorker3.equals("SAFE")) {
-                            tvStatus3.setText("SAFE");
-                            tvStatus3.setTextColor(0xFF00FFAA);
-                        } else if (statusWorker3.equals("GOOD")) {
-                            tvStatus3.setText("GOOD");
-                            tvStatus3.setTextColor(0xFFFFCC00);
-                        } else if (statusWorker3.equals("BAD")) {
-                            tvStatus3.setText("BAD");
-                            tvStatus3.setTextColor(0xFFFF2400);
-                        }
-
-                        tvName.setText(name);
-                        tvPlaceName.setText(placeName);
                     }
-                } else {
-                    // код для обработки ошибок при отправке запроса
-                    Toast.makeText(AdminActivity.this, "Ошибка сети. Проверьте подключение к Интернету и попробуйте снова", Toast.LENGTH_LONG).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<AdminResponse> call, Throwable t) {
-                // код для обработки ошибок при отправке запроса
-                Toast.makeText(AdminActivity.this, "Ошибка сети. Проверьте подключение к Интернету и попробуйте снова", Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onFailure(Call<AdminResponse> call, Throwable t) {
+                        // код для обработки ошибок при отправке запроса
+                        Toast.makeText(AdminActivity.this, "Ошибка сети. Проверьте подключение к Интернету и попробуйте снова", Toast.LENGTH_LONG).show();
+                    }
+                });
+                mHandler.postDelayed(this, 1000); // Повторяем через 1 секунду
             }
-        });
+        };
+        mHandler.post(mRunnable); // Начинаем повторение
 
         Button btnLogout = findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +140,11 @@ public class AdminActivity extends AppCompatActivity {
                 });
             }
         });
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacks(mRunnable); // Остановка повторения, когда активность закрывается
     }
 }
