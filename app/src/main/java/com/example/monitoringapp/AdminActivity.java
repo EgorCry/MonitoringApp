@@ -41,10 +41,12 @@ public class AdminActivity extends AppCompatActivity {
         ImageView imageViewHealth2 = findViewById(R.id.iv_first_image);
         ImageView imageViewHumidity2 = findViewById(R.id.iv_second_image);
         TextView tvStatus2 = (TextView) findViewById(R.id.tv_text);
+        ImageView imageDevice2 = findViewById(R.id.iv_device_2);
 
         ImageView imageViewHealth3 = findViewById(R.id.iv_first_image1);
         ImageView imageViewHumidity3 = findViewById(R.id.iv_second_image1);
         TextView tvStatus3 = (TextView) findViewById(R.id.tv_text1);
+        ImageView imageDevice3 = findViewById(R.id.iv_device_3);
 
         adminAPI = retrofit.create(AdminAPI.class);
 
@@ -65,6 +67,17 @@ public class AdminActivity extends AppCompatActivity {
                                 int imageHealth2 = getResources().getIdentifier("percent_" + predictionInt2, "drawable", getPackageName());
                                 int humidityInt2 = adminResponse.getHumidity_worker2().intValue();
                                 int imageHumidity2 = getResources().getIdentifier("percent_" + humidityInt2, "drawable", getPackageName());
+
+                                int statusDevice2 = adminResponse.getDevice_worker2();
+                                if (statusDevice2 == 1){
+                                    statusDevice2 = getResources().getIdentifier("mask", "drawable", getPackageName());
+                                }
+                                else {
+                                    statusDevice2 = getResources().getIdentifier("no_mask", "drawable", getPackageName());
+                                }
+                                imageDevice2.setImageResource(statusDevice2);
+
+
                                 imageViewHealth2.setImageResource(imageHealth2);
                                 imageViewHumidity2.setImageResource(imageHumidity2);
                                 String statusWorker2 = adminResponse.getStatus_worker2();
@@ -86,7 +99,16 @@ public class AdminActivity extends AppCompatActivity {
                                 imageViewHealth3.setImageResource(imageHealth3);
                                 imageViewHumidity3.setImageResource(imageHumidity3);
                                 String statusWorker3 = adminResponse.getStatus_worker3();
-                                Log.e("Redirect", "Message3:"+humidityInt3);
+
+                                int statusDevice3 = adminResponse.getDevice_worker3();
+                                if (statusDevice3 == 1){
+                                    statusDevice3 = getResources().getIdentifier("mask", "drawable", getPackageName());
+                                }
+                                else {
+                                    statusDevice3 = getResources().getIdentifier("no_mask", "drawable", getPackageName());
+                                }
+                                imageDevice3.setImageResource(statusDevice3);
+
                                 if (statusWorker3.equals("SAFE")) {
                                     tvStatus3.setText("SAFE");
                                     tvStatus3.setTextColor(0xFF00FFAA);
@@ -95,7 +117,7 @@ public class AdminActivity extends AppCompatActivity {
                                     tvStatus3.setTextColor(0xFFFFCC00);
                                 } else if (statusWorker3.equals("BAD")) {
                                     tvStatus3.setText("BAD");
-                                    tvStatus3.setTextColor(0xFFFF2400);
+                                    tvStatus3.setTextColor(0xFFCC3300);
                                 }
 
                                 tvName.setText(name);

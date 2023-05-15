@@ -14,6 +14,24 @@ public class AdminResponse {
     private Float humidity_worker3;
     private String status_worker2;
     private String status_worker3;
+    private int device_worker2;
+    private int device_worker3;
+
+    public int getDevice_worker2() {
+        return device_worker2;
+    }
+
+    public void setDevice_worker2(int device_worker2) {
+        this.device_worker2 = device_worker2;
+    }
+
+    public int getDevice_worker3() {
+        return device_worker3;
+    }
+
+    public void setDevice_worker3(int device_worker3) {
+        this.device_worker3 = device_worker3;
+    }
 
     public Float getPrediction_worker2() {
         return prediction_worker2;
