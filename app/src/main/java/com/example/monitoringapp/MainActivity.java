@@ -31,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
-    private WorkerService workerService;
+    private AppAPI workerService;
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        workerService = retrofit.create(WorkerService.class);
+        workerService = retrofit.create(AppAPI.class);
         Call<List<Worker>> call = workerService.getWorkers();
         call.enqueue(new Callback<List<Worker>>() {
             @Override
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                RegistrationService registrationService = retrofit.create(RegistrationService.class);
+                AppAPI registrationService = retrofit.create(AppAPI.class);
                 Call<ResponseBody> call = registrationService.register(email, password);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override

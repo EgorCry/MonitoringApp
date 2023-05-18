@@ -3,7 +3,6 @@ package com.example.monitoringapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,9 +20,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class AdminActivity extends AppCompatActivity {
-    private Handler mHandler = new Handler();
+    private Handler Handler = new Handler();
     private Runnable mRunnable;
-    private AdminAPI adminAPI;
+    private AppAPI appAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +47,12 @@ public class AdminActivity extends AppCompatActivity {
         TextView tvStatus3 = (TextView) findViewById(R.id.tv_text1);
         ImageView imageDevice3 = findViewById(R.id.iv_device_3);
 
-        adminAPI = retrofit.create(AdminAPI.class);
+        appAPI = retrofit.create(AppAPI.class);
 
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                Call<AdminResponse> call = adminAPI.getAdminData();
+                Call<AdminResponse> call = appAPI.getAdminData();
                 call.enqueue(new Callback<AdminResponse>() {
                     @Override
                     public void onResponse(Call<AdminResponse> call, Response<AdminResponse> response) {
@@ -135,16 +134,16 @@ public class AdminActivity extends AppCompatActivity {
                         Toast.makeText(AdminActivity.this, "Ошибка сети. Проверьте подключение к Интернету и попробуйте снова", Toast.LENGTH_LONG).show();
                     }
                 });
-                mHandler.postDelayed(this, 1000); // Повторяем через 1 секунду
+                Handler.postDelayed(this, 1000); // Повторяем через 1 секунду
             }
         };
-        mHandler.post(mRunnable); // Начинаем повторение
+        Handler.post(mRunnable); // Начинаем повторение
 
         Button btnLogout = findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logout apiInterface = retrofit.create(Logout.class);
+                AppAPI apiInterface = retrofit.create(AppAPI.class);
                 Call<ResponseBody> call = apiInterface.logout();
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -167,6 +166,6 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacks(mRunnable); // Остановка повторения, когда активность закрывается
+        Handler.removeCallbacks(mRunnable); // Остановка повторения, когда активность закрывается
     }
 }
