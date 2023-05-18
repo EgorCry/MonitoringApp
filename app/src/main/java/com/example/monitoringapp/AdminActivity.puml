@@ -1,103 +1,36 @@
 @startuml
-class WorkerActivity {
-    - Handler: Handler
-    - mRunnable: Runnable
-    - appAPI: AppAPI
-    + onCreate(savedInstanceState: Bundle): void
-    + onDestroy(): void
-}
-
-class Retrofit {
-    - baseUrl: String
-    - gsonConverterFactory: GsonConverterFactory
-    + create(): Retrofit
-}
-
-class TextView {
-}
-
-class ImageView {
+interface AppAPI {
+    + getWorkers(): Call<List<Worker>>
+    + getAdminData(): Call<AdminResponse>
+    + getWorkerData(): Call<WorkerResponse>
+    + logout(): Call<ResponseBody>
+    + register(login: String, password: String): Call<ResponseBody>
 }
 
 class Call<T> {
-    + enqueue(callback: Callback<T>): void
 }
 
-class Response<T> {
-    + isSuccessful(): boolean
-    + body(): T
+class List<T> {
+}
+
+class Worker {
+}
+
+class AdminResponse {
 }
 
 class WorkerResponse {
-    + getName(): String
-    + getSurname(): String
-    + getWorkshopName(): String
-    + getPrediction_worker(): int
-    + getHumidity_worker(): int
-    + getDevice_worker(): int
-    + getStatus_worker(): String
-}
-
-class Toast {
-    + makeText(context: Context, text: CharSequence, duration: int): Toast
-    + show(): void
-}
-
-class Intent {
-    + Intent(context: Context, cls: Class): Intent
-}
-
-class MainActivity {
-}
-
-class AppAPI {
-    + getWorkerData(): Call<WorkerResponse>
-    + logout(): Call<ResponseBody>
 }
 
 class ResponseBody {
 }
 
-class View {
-    - setOnClickListener(listener: View.OnClickListener): void
-}
-
-class AppCompatActivity {
-    + setContentView(layoutResID: int): void
-    + getPackageName(): String
-    + getResources(): Resources
-}
-
-class Resources {
-    + getIdentifier(name: String, defType: String, defPackage: String): int
-}
-
-WorkerActivity --|> AppCompatActivity
-AppCompatActivity --|> Context
-Retrofit --|> Converter.Factory
+AppAPI --|> Object
 Call --|> Object
-Response --|> Object
-Intent --|> Object
-Toast --|> Object
-View --|> Object
-
-WorkerActivity *-- Handler
-WorkerActivity *-- Runnable
-WorkerActivity *-- AppAPI
-WorkerActivity *-- Retrofit
-WorkerActivity *-- TextView
-WorkerActivity *-- ImageView
-
-AppAPI *-- Call
-Retrofit *-- GsonConverterFactory
-
-Call *-- Callback
-Response *-- WorkerResponse
-Toast *-- WorkerActivity
-Intent *-- WorkerActivity
-MainActivity *-- Intent
-AppCompatActivity *-- Toast
-Resources *-- WorkerActivity
-View *-- WorkerActivity
+List --|> Object
+Worker --|> Object
+AdminResponse --|> Object
+WorkerResponse --|> Object
+ResponseBody --|> Object
 
 @enduml
