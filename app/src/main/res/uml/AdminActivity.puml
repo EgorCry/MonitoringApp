@@ -1,0 +1,34 @@
+@startuml
+class WorkerResponse {
+    - message: String
+    - id: int
+    - workshopName: String
+    - name: String
+    - surname: String
+    - prediction_worker: Float
+    - humidity_worker: Float
+    - status_worker: String
+    - device_worker: int
+    + getMessage(): String
+    + setMessage(message: String): void
+    + getId(): int
+    + setId(id: int): void
+    + getWorkshopName(): String
+    + setWorkshopName(workshopName: String): void
+    + getName(): String
+    + setName(name: String): void
+    + getSurname(): String
+    + setSurname(surname: String): void
+    + getPrediction_worker(): Float
+    + setPrediction_worker(prediction_worker: Float): void
+    + getHumidity_worker(): Float
+    + setHumidity_worker(humidity_worker: Float): void
+    + getStatus_worker(): String
+    + setStatus_worker(status_worker: String): void
+    + getDevice_worker(): int
+    + setDevice_worker(device_worker: int): void
+}
+
+WorkerResponse --|> Object
+
+@enduml

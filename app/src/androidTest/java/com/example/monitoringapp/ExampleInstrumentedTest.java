@@ -1,12 +1,21 @@
 package com.example.monitoringapp;
 
 import android.content.Context;
+import android.text.Editable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
@@ -24,3 +33,4 @@ public class ExampleInstrumentedTest {
         assertEquals("com.example.monitoringapp", appContext.getPackageName());
     }
 }
+

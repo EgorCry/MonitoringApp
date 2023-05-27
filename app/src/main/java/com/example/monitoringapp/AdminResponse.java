@@ -4,8 +4,8 @@ public class AdminResponse {
     private String message;
     private int ID_worker;
     private String workshop_name;
-    private String worker1;
-    private String worker2;
+    private String worker_2;
+    private String worker_3;
     private String first_name;
     private String second_name;
     private Float prediction_worker2;
@@ -14,23 +14,41 @@ public class AdminResponse {
     private Float humidity_worker3;
     private String status_worker2;
     private String status_worker3;
-    private int device_worker2;
-    private int device_worker3;
+    private int device_worker_name_2;
+    private int device_worker_name_3;
+    private int device_worker_mask_2;
+    private int device_worker_mask_3;
 
-    public int getDevice_worker2() {
-        return device_worker2;
+    public int getDevice_worker_name_2() {
+        return device_worker_name_2;
     }
 
-    public void setDevice_worker2(int device_worker2) {
-        this.device_worker2 = device_worker2;
+    public void setDevice_worker_name_2(int device_worker_name_2) {
+        this.device_worker_name_2 = device_worker_name_2;
     }
 
-    public int getDevice_worker3() {
-        return device_worker3;
+    public int getDevice_worker_name_3() {
+        return device_worker_name_3;
     }
 
-    public void setDevice_worker3(int device_worker3) {
-        this.device_worker3 = device_worker3;
+    public void setDevice_worker_name_3(int device_worker_name_3) {
+        this.device_worker_name_3 = device_worker_name_3;
+    }
+
+    public int getDevice_worker_mask_2() {
+        return device_worker_mask_2;
+    }
+
+    public void setDevice_worker_mask_2(int device_worker_mask_2) {
+        this.device_worker_mask_2 = device_worker_mask_2;
+    }
+
+    public int getDevice_worker_mask_3() {
+        return device_worker_mask_3;
+    }
+
+    public void setDevice_worker_mask_3(int device_worker_mask_3) {
+        this.device_worker_mask_3 = device_worker_mask_3;
     }
 
     public Float getPrediction_worker2() {
@@ -105,20 +123,20 @@ public class AdminResponse {
         this.workshop_name = workshop_name;
     }
 
-    public String getWorker1() {
-        return worker1;
+    public String getWorker_2() {
+        return worker_2;
     }
 
-    public void setWorker1(String worker1) {
-        this.worker1 = worker1;
+    public void setWorker_2(String worker_2) {
+        this.worker_2 = worker_2;
     }
 
-    public String getWorker2() {
-        return worker2;
+    public String getWorker_3() {
+        return worker_3;
     }
 
-    public void setWorker2(String worker2) {
-        this.worker2 = worker2;
+    public void setWorker_3(String worker_3) {
+        this.worker_3 = worker_3;
     }
 
     public String getFirst_name() {

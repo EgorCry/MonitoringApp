@@ -3,13 +3,22 @@ package com.example.monitoringapp;
 public class WorkerResponse {
     private String message;
     private int id;
-    private String workshopName;
-    private String name;
+    private String workshop_name;
+    private String first_name;
     private String surname;
     private Float prediction_worker;
     private Float humidity_worker;
     private String status_worker;
-    private int device_worker;
+    private int device_worker_name;
+    private int device_worker_mask;
+
+    public int getDevice_worker_name() {
+        return device_worker_name;
+    }
+
+    public void setDevice_worker_name(int device_worker_name) {
+        this.device_worker_name = device_worker_name;
+    }
 
     public String getMessage() {
         return message;
@@ -27,20 +36,20 @@ public class WorkerResponse {
         this.id = id;
     }
 
-    public String getWorkshopName() {
-        return workshopName;
+    public String getWorkshop_name() {
+        return workshop_name;
     }
 
-    public void setWorkshopName(String workshopName) {
-        this.workshopName = workshopName;
+    public void setWorkshop_name(String workshop_name) {
+        this.workshop_name = workshop_name;
     }
 
-    public String getName() {
-        return name;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirst_name(String name) {
+        this.first_name = name;
     }
 
     public String getSurname() {
@@ -75,11 +84,12 @@ public class WorkerResponse {
         this.status_worker = status_worker;
     }
 
-    public int getDevice_worker() {
-        return device_worker;
+
+    public int getDevice_worker_mask() {
+        return device_worker_mask;
     }
 
-    public void setDevice_worker(int device_worker) {
-        this.device_worker = device_worker;
+    public void setDevice_worker_mask(int device_worker_mask) {
+        this.device_worker_mask = device_worker_mask;
     }
 }

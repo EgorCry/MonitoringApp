@@ -32,16 +32,16 @@
             android:gravity="center"/>
 
         <ImageView
-            android:id="@+id/iv_rounded_image"
+            android:id="@+id/iv_avatar_worker"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/avatar1"/>
+            android:src="@drawable/egorgridasov"/>
 
     </LinearLayout>
 
     <!-- Второй уровень -->
     <TextView
-        android:id="@+id/tv_place_name"
+        android:id="@+id/tv_place_name_worker"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="Place Name"
@@ -101,8 +101,10 @@
 
     <!-- Третий уровень -->
     <ScrollView
+        android:id="@+id/worker_layer"
         android:layout_width="match_parent"
-        android:layout_height="190dp">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -136,7 +138,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_text"
+                        android:id="@+id/tv_text_worker_2"
                         android:layout_width="163dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

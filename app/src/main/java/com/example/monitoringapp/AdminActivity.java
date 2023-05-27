@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,13 +43,18 @@ public class AdminActivity extends AppCompatActivity {
 
         ImageView imageViewHealth2 = findViewById(R.id.iv_first_image);
         ImageView imageViewHumidity2 = findViewById(R.id.iv_second_image);
-        TextView tvStatus2 = (TextView) findViewById(R.id.tv_text);
+        TextView tvStatus2 = (TextView) findViewById(R.id.tv_text_worker_2);
         ImageView imageDevice2 = findViewById(R.id.iv_device_2);
 
         ImageView imageViewHealth3 = findViewById(R.id.iv_first_image1);
         ImageView imageViewHumidity3 = findViewById(R.id.iv_second_image1);
-        TextView tvStatus3 = (TextView) findViewById(R.id.tv_text1);
+        TextView tvStatus3 = (TextView) findViewById(R.id.tv_text_worker_3);
         ImageView imageDevice3 = findViewById(R.id.iv_device_3);
+
+        TextView tvWorker2 = findViewById(R.id.name_worker_2);
+        TextView tvWorker3 = findViewById(R.id.name_worker_3);
+
+        Animation glowingRed = AnimationUtils.loadAnimation(this, R.anim.glowing_red);
 
         appAPI = retrofit.create(AppAPI.class);
 
@@ -62,12 +71,15 @@ public class AdminActivity extends AppCompatActivity {
                                 String name = adminResponse.getFirst_name() + " " + adminResponse.getSecond_name();
                                 String placeName = adminResponse.getWorkshop_name();
 
+
+                                String nameWorker2 = adminResponse.getWorker_2();
+                                tvWorker2.setText(nameWorker2);
                                 int predictionInt2 = adminResponse.getPrediction_worker2().intValue();
                                 int imageHealth2 = getResources().getIdentifier("percent_" + predictionInt2, "drawable", getPackageName());
                                 int humidityInt2 = adminResponse.getHumidity_worker2().intValue();
                                 int imageHumidity2 = getResources().getIdentifier("percent_" + humidityInt2, "drawable", getPackageName());
 
-                                int statusDevice2 = adminResponse.getDevice_worker2();
+                                int statusDevice2 = adminResponse.getDevice_worker_mask_2();
                                 if (statusDevice2 == 1){
                                     statusDevice2 = getResources().getIdentifier("mask", "drawable", getPackageName());
                                 }
@@ -80,17 +92,27 @@ public class AdminActivity extends AppCompatActivity {
                                 imageViewHealth2.setImageResource(imageHealth2);
                                 imageViewHumidity2.setImageResource(imageHumidity2);
                                 String statusWorker2 = adminResponse.getStatus_worker2();
-                                if (statusWorker2.equals("SAFE")) {
-                                    tvStatus2.setText("SAFE");
-                                    tvStatus2.setTextColor(0xFF00FFAA);
-                                } else if (statusWorker2.equals("GOOD")) {
-                                    tvStatus2.setText("GOOD");
-                                    tvStatus2.setTextColor(0xFFFFCC00);
-                                } else if (statusWorker2.equals("BAD")) {
-                                    tvStatus2.setText("BAD");
-                                    tvStatus2.setTextColor(0xFFFF2400);
+                                int worker2Recognize = adminResponse.getDevice_worker_name_2();
+                                if (worker2Recognize == 1) {
+                                    if (statusWorker2.equals("SAFE")) {
+                                        tvStatus2.setText("SAFE");
+                                        tvStatus2.setTextColor(0xFF00FFAA);
+                                    } else if (statusWorker2.equals("GOOD")) {
+                                        tvStatus2.setText("GOOD");
+                                        tvStatus2.setTextColor(0xFFFFCC00);
+                                    } else if (statusWorker2.equals("BAD")) {
+                                        tvStatus2.setText("BAD");
+                                        tvStatus2.setTextColor(0xFFFF2400);
+                                    }
+                                }
+                                else {
+                                    tvStatus2.setText("N/R");
+                                    tvStatus2.setTextColor(0xFFF);
+                                    tvStatus2.startAnimation(glowingRed);
                                 }
 
+                                String nameWorker3 = adminResponse.getWorker_3();
+                                tvWorker3.setText(nameWorker3);
                                 int predictionInt3 = adminResponse.getPrediction_worker3().intValue();
                                 int imageHealth3 = getResources().getIdentifier("percent_" + predictionInt3, "drawable", getPackageName());
                                 int humidityInt3 = adminResponse.getHumidity_worker3().intValue();
@@ -99,7 +121,7 @@ public class AdminActivity extends AppCompatActivity {
                                 imageViewHumidity3.setImageResource(imageHumidity3);
                                 String statusWorker3 = adminResponse.getStatus_worker3();
 
-                                int statusDevice3 = adminResponse.getDevice_worker3();
+                                int statusDevice3 = adminResponse.getDevice_worker_mask_3();
                                 if (statusDevice3 == 1){
                                     statusDevice3 = getResources().getIdentifier("mask", "drawable", getPackageName());
                                 }
@@ -108,15 +130,23 @@ public class AdminActivity extends AppCompatActivity {
                                 }
                                 imageDevice3.setImageResource(statusDevice3);
 
-                                if (statusWorker3.equals("SAFE")) {
-                                    tvStatus3.setText("SAFE");
-                                    tvStatus3.setTextColor(0xFF00FFAA);
-                                } else if (statusWorker3.equals("GOOD")) {
-                                    tvStatus3.setText("GOOD");
-                                    tvStatus3.setTextColor(0xFFFFCC00);
-                                } else if (statusWorker3.equals("BAD")) {
-                                    tvStatus3.setText("BAD");
-                                    tvStatus3.setTextColor(0xFFCC3300);
+                                int worker3Recognize = adminResponse.getDevice_worker_name_3();
+                                if (worker3Recognize == 1) {
+                                    if (statusWorker3.equals("SAFE")) {
+                                        tvStatus3.setText("SAFE");
+                                        tvStatus3.setTextColor(0xFF00FFAA);
+                                    } else if (statusWorker3.equals("GOOD")) {
+                                        tvStatus3.setText("GOOD");
+                                        tvStatus3.setTextColor(0xFFFFCC00);
+                                    } else if (statusWorker3.equals("BAD")) {
+                                        tvStatus3.setText("BAD");
+                                        tvStatus3.setTextColor(0xFFCC3300);
+                                    }
+                                }
+                                else {
+                                    tvStatus3.setText("N/R");
+                                    tvStatus3.setTextColor(0xFFF);
+                                    tvStatus3.startAnimation(glowingRed);
                                 }
 
                                 tvName.setText(name);

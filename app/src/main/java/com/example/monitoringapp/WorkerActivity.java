@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,12 +36,16 @@ public class WorkerActivity extends AppCompatActivity {
                 .build();
 
         TextView tvName = (TextView) findViewById(R.id.tv_name);
-        TextView tvPlaceName = (TextView) findViewById(R.id.tv_place_name);
+        TextView tvPlaceName = (TextView) findViewById(R.id.tv_place_name_worker);
 
         ImageView imageViewHealth = findViewById(R.id.iv_first_image);
         ImageView imageViewHumidity = findViewById(R.id.iv_second_image);
-        TextView tvStatus = (TextView) findViewById(R.id.tv_text);
+        TextView tvStatus = (TextView) findViewById(R.id.tv_text_worker_2);
         ImageView imageDevice = findViewById(R.id.iv_device);
+
+        ImageView imageAvatarWorker = findViewById(R.id.iv_avatar_worker);
+
+        Animation glowingRed = AnimationUtils.loadAnimation(this, R.anim.glowing_red);
 
         appAPI = retrofit.create(AppAPI.class);
 
@@ -53,15 +59,18 @@ public class WorkerActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             WorkerResponse workerResponse = response.body();
                             if (workerResponse != null) {
-                                String name = workerResponse.getName() + " " + workerResponse.getSurname();
-                                String placeName = workerResponse.getWorkshopName();
+                                String name = workerResponse.getFirst_name() + " " + workerResponse.getSurname();
+                                String nameLowercase = (workerResponse.getFirst_name() + workerResponse.getSurname()).toLowerCase();
+                                int avatarWorker = getResources().getIdentifier(nameLowercase, "drawable", getPackageName());
+                                imageAvatarWorker.setImageResource(avatarWorker);
+                                String placeName = workerResponse.getWorkshop_name();
 
                                 int predictionInt = workerResponse.getPrediction_worker().intValue();
                                 int imageHealth = getResources().getIdentifier("percent_" + predictionInt, "drawable", getPackageName());
                                 int humidityInt = workerResponse.getHumidity_worker().intValue();
                                 int imageHumidity = getResources().getIdentifier("percent_" + humidityInt, "drawable", getPackageName());
 
-                                int statusDevice = workerResponse.getDevice_worker();
+                                int statusDevice = workerResponse.getDevice_worker_mask();
                                 if (statusDevice == 1){
                                     statusDevice = getResources().getIdentifier("mask", "drawable", getPackageName());
                                 }
@@ -74,15 +83,24 @@ public class WorkerActivity extends AppCompatActivity {
                                 imageViewHealth.setImageResource(imageHealth);
                                 imageViewHumidity.setImageResource(imageHumidity);
                                 String statusWorker2 = workerResponse.getStatus_worker();
-                                if (statusWorker2.equals("SAFE")) {
-                                    tvStatus.setText("SAFE");
-                                    tvStatus.setTextColor(0xFF00FFAA);
-                                } else if (statusWorker2.equals("GOOD")) {
-                                    tvStatus.setText("GOOD");
-                                    tvStatus.setTextColor(0xFFFFCC00);
-                                } else if (statusWorker2.equals("BAD")) {
-                                    tvStatus.setText("BAD");
-                                    tvStatus.setTextColor(0xFFFF2400);
+                                int statusRecognize = workerResponse.getDevice_worker_name();
+                                if (statusRecognize == 1) {
+                                    tvStatus.setBackgroundResource(android.R.color.white);
+                                    if (statusWorker2.equals("SAFE")) {
+                                        tvStatus.setText("SAFE");
+                                        tvStatus.setTextColor(0xFF00FFAA);
+                                    } else if (statusWorker2.equals("GOOD")) {
+                                        tvStatus.setText("GOOD");
+                                        tvStatus.setTextColor(0xFFFFCC00);
+                                    } else if (statusWorker2.equals("BAD")) {
+                                        tvStatus.setText("BAD");
+                                        tvStatus.setTextColor(0xFFFF2400);
+                                    }
+                                }
+                                else {
+                                    tvStatus.setText("N/R");
+                                    tvStatus.setTextColor(0xFFF);
+                                    tvStatus.startAnimation(glowingRed);
                                 }
 
                                 tvName.setText(name);
